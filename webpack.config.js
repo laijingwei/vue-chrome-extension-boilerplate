@@ -88,7 +88,6 @@ function configFunc(env, argv) {
     resolve: {
       alias: {
         vue$: 'vue/dist/vue.runtime.esm.js',
-        bulma$: 'bulma/css/bulma.css',
       },
       // extensions: ['.js'],
     },
