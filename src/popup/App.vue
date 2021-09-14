@@ -19,8 +19,7 @@ export default {
 </script>
 
 <style>
-.min-w-popup {
-  width: 300px;
-  height: 400px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 </style>

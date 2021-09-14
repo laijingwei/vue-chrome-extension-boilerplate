@@ -1,42 +1,40 @@
-# vue-chrome-extension-boilerplate
-![Node.js CI](https://github.com/mubaidr/vue-chrome-extension-boilerplate/workflows/Node.js%20CI/badge.svg)[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+# vue chrome extension
 
-Boilerplate for Chrome extension using Vue.js and Webpack with auto-reload enabled.
+## Install TailwindCSS
 
-## Scripts
-
-```json
-// install dependencies
-npm install
-
-// build extension and watch for changes
-npm run dev
-
-// build extension zip
-npm run build
-
-// lint all source files
-npm run lint
+```bash
+yarn add -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9 postcss-class-rename@^1 postcss-remove-selectors@^2 postcss-scss@^3
+npx tailwindcss init -p
+yarn add -D postcss-cli@^7 postcss-loader@^4.2.0 cross-env
 ```
 
-## Contributors ✨
+tailwind.config.js
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+```js
+module.exports = {
+  purge: ['./src/**/*.vue'],
+  darkMode: 'media',
+  theme: {
+    minWidth: {
+      '0': '0',
+      'popup': '350px',
+      full: '100%'
+    },
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/stealthleads"><img src="https://avatars0.githubusercontent.com/u/57643807?v=4" width="100px;" alt=""/><br /><sub><b>stealthleads</b></sub></a><br /><a href="#infra-stealthleads" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/mubaidr/vue-chrome-extension-boilerplate/commits?author=stealthleads" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/linkerGitHub"><img src="https://avatars3.githubusercontent.com/u/15519222?v=4" width="100px;" alt=""/><br /><sub><b>linkerGitHub</b></sub></a><br /><a href="https://github.com/mubaidr/vue-chrome-extension-boilerplate/commits?author=linkerGitHub" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/andrewmackie"><img src="https://avatars1.githubusercontent.com/u/1217203?v=4" width="100px;" alt=""/><br /><sub><b>Andrew Mackie</b></sub></a><br /><a href="https://github.com/mubaidr/vue-chrome-extension-boilerplate/commits?author=andrewmackie" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://momane.com"><img src="https://avatars3.githubusercontent.com/u/3389447?v=4" width="100px;" alt=""/><br /><sub><b>Hank X</b></sub></a><br /><a href="https://github.com/mubaidr/vue-chrome-extension-boilerplate/commits?author=hankxdev" title="Code">💻</a></td>
-  </tr>
-</table>
+App.vue
 
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+```html
+<style>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
+```

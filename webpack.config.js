@@ -25,6 +25,7 @@ function configFunc(env, argv) {
       path: path.resolve(__dirname, './dist'),
       publicPath: './',
       filename: '[name].js',
+      chunkFilename: 'bundle.js',
     },
     module: {
       rules: [
@@ -73,6 +74,7 @@ function configFunc(env, argv) {
           use: [
             isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
             'css-loader',
+            'postcss-loader',
           ],
         },
         {
