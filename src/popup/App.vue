@@ -1,10 +1,6 @@
 <template>
-  <div class="min-w-popup">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div class="p-4 min-w-popup dark:bg-gray-700">
+    <router-view />
   </div>
 </template>
 
@@ -12,8 +8,11 @@
 export default {
   data() {
     return {
-      msg: 'Welcome!'
+      msg: "Welcome!",
     }
+  },
+  mounted() {
+    this.$router.push('/')
   }
 }
 </script>
