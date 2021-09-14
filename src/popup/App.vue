@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
+  <div class="min-w-popup">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
@@ -14,5 +18,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
+.min-w-popup {
+  width: 300px;
+  height: 400px;
+}
 </style>
