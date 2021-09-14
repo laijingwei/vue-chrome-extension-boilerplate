@@ -2,6 +2,10 @@
   <div>
     <input
       v-model="search"
+      @keyup="searchBsgExtUrls(search)"
+      @keyup.down="currentAdd"
+      @keyup.up="currentMinus"
+      @keyup.enter="goTo"
       autofocus
       class="w-full text-base dark:bg-gray-800 mb-2 p-1 border-2 dark:border-gray-600 dark:text-gray-100 rounded"
       aria-label="搜索"
@@ -38,12 +42,21 @@ export default {
   data() {
     return {
       current: 0,
-      announcement: "",
-      search: "",
+      announcement: '',
+      search: '',
       posts: [],
     }
   },
   methods: {
+    currentAdd() {
+      if (this.current < this.posts.length - 1) this.current++
+    },
+    currentMinus() {
+      if (this.current > 0) this.current--
+    },
+    goTo() {
+      if (this.posts.length > 0) window.open(this.posts[this.current].url, '_blank')
+    },
     async http(query, variables) {
       try {
         let {data} = await axios.post(server, {query, variables})
@@ -91,7 +104,7 @@ export default {
           }
         }
       `;
-      return await this.http(query, {keywords,limit})
+      this.posts = await this.http(query, {keywords,limit})
     },
     async addCountBsgExtUrls(id, sort, url) {
       let query = `
@@ -117,11 +130,14 @@ export default {
       } catch (e) {
         return { id: 0, title: '无法连接至服务器', url: '', sort: 0 }
       }
+    },
+    async init() {
+      this.posts = await this.queryBsgExtUrls();
+      this.announcement = await this.queryBsgExtAnnouncement()
     }
   },
   mounted() {
-    this.posts = this.queryBsgExtUrls();
-    this.announcement = this.queryBsgExtAnnouncement()
+    this.init()
   }
 }
 </script>
