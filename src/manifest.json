@@ -1,4 +1,8 @@
 {
+  "name": "博思高研发",
+  "description": "博思高研发",
+  "version": "1.0.0",
+  "manifest_version": 2,
   "background": {
     "scripts": ["./background.js"]
   },
@@ -13,17 +17,24 @@
       "run_at": "document_end"
     }
   ],
-  "description": "博思高研发",
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+E",
+        "mac": "MacCtrl+E"
+      },
+      "description": "Open popup.html"
+    }
+  },
   "icons": {
     "16": "assets/icons/icon_16.png",
     "32": "assets/icons/icon_32.png",
     "64": "assets/icons/icon_64.png",
     "128": "assets/icons/icon_128.png"
   },
-  "manifest_version": 2,
-  "name": "博思高研发",
   "options_ui": {
     "chrome_style": false,
+    "open_in_tab": false,
     "page": "./options.html"
   },
   "permissions": [
@@ -34,6 +45,5 @@
     "tabs",
     "webRequest"
   ],
-  "version": "1.0.0",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
