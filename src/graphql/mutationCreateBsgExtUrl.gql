@@ -1,0 +1,10 @@
+mutation ($input: createBsgExtUrlInput!) {
+  createBsgExtUrl(input: $input) {
+    bsgExtUrl {
+      id
+      title
+      url
+      sort
+    }
+  }
+}

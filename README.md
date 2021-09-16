@@ -107,3 +107,23 @@ export default {
   },
 }
 ```
+.graphqlconfig
+
+```json
+{
+  "name": "My GraphQL Schema",
+  "schemaPath": "./src/graphql/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://192.168.110.165:1337/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}
+```
+
