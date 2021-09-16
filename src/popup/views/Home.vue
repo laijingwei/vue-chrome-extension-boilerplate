@@ -32,6 +32,7 @@
 <script>
 import gql from 'graphql-tag'
 import axios from 'axios'
+import queryBsgExtAnnouncement from '../../graphql/queryBsgExtAnnouncement.gql'
 
 const server = 'http://192.168.110.165:1337/graphql';
 const limit = 5;
@@ -40,11 +41,7 @@ export default {
   name: 'Home',
   apollo: {
     bsgExtAnnouncement: {
-      query: gql`query {
-        bsgExtAnnouncement {
-          title
-        }
-      }`,
+      query: queryBsgExtAnnouncement,
       variables() {
         return {
           keywords: '物业'

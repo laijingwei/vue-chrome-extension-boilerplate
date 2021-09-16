@@ -85,6 +85,10 @@ function configFunc(env, argv) {
             esModule: false,
           },
         },
+        {
+          test: /\.(graphql|gql)$/,
+          loader: 'graphql-tag/loader',
+        },
       ],
     },
     resolve: {
