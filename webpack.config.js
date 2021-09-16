@@ -94,6 +94,7 @@ function configFunc(env, argv) {
     resolve: {
       alias: {
         vue$: 'vue/dist/vue.runtime.esm.js',
+        '@': path.resolve(__dirname, "src"),
       },
       // extensions: ['.js'],
     },

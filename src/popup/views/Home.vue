@@ -32,7 +32,7 @@
 <script>
 import gql from 'graphql-tag'
 import axios from 'axios'
-import queryBsgExtAnnouncement from '../../graphql/queryBsgExtAnnouncement.gql'
+import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
 
 const server = 'http://192.168.110.165:1337/graphql';
 const limit = 5;
