@@ -1,8 +1,7 @@
 <template>
   <div>
     <input
-      v-model="search"
-      @keyup="searchBsgExtUrls(search)"
+      v-model="keywords"
       @keyup.down="currentAdd"
       @keyup.up="currentMinus"
       @keyup.enter="goTo"
@@ -12,8 +11,8 @@
       placeholder="搜索..."
     >
     <div class="grid grid-cols-1 gap-1">
-      <template v-if="posts.length > 0">
-        <template v-for="(item,index) in posts">
+      <template v-if="bsgExtUrls">
+        <template v-for="(item,index) in bsgExtUrls">
           <div
             @click="addCountBsgExtUrls(item.id, item.sort, item.url)"
             :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
@@ -21,7 +20,7 @@
           >{{ item.title }}</div>
         </template>
       </template>
-      <template v-if="posts.length === 0">
+      <template v-else>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-3 rounded text-center">无相关记录</p>
       </template>
     </div>
@@ -30,125 +29,61 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import axios from 'axios'
 import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
-
-const server = 'http://192.168.110.165:1337/graphql';
-const limit = 5;
+import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
+import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
 export default {
   name: 'Home',
   apollo: {
     bsgExtAnnouncement: {
       query: queryBsgExtAnnouncement,
+      update: (data) => data.bsgExtAnnouncement.title
+    },
+    bsgExtUrls: {
+      query: queryBsgExtUrls,
       variables() {
         return {
-          keywords: '物业'
+          keywords: this.keywords
         }
       },
-      update: (data) => data.bsgExtAnnouncement.title
+      update: (data) => data.bsgExtUrls
     },
   },
   data() {
     return {
       current: 0,
-      announcement: '',
-      search: '',
-      posts: [],
+      keywords: '',
     }
   },
   methods: {
     currentAdd() {
-      if (this.current < this.posts.length - 1) this.current++
+      if (this.current < this.bsgExtUrls.length - 1) this.current++
     },
     currentMinus() {
       if (this.current > 0) this.current--
     },
     goTo() {
-      if (this.posts.length > 0) window.open(this.posts[this.current].url, '_blank')
+      if (this.bsgExtUrls.length > 0) window.open(this.bsgExtUrls[this.current].url, '_blank')
     },
-    async http(query, variables) {
-      try {
-        let {data} = await axios.post(server, {query, variables})
-        return data.data.bsgExtUrls
-      } catch (e) {
-        return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
-      }
-    },
-    async queryBsgExtAnnouncement() {
-      let query = `
-        query {
-          bsgExtAnnouncement {
-            title
-          }
-        }
-      `;
-      try {
-        let {data} = await axios.post(server, {query})
-        return data.data.bsgExtAnnouncement.title
-      } catch (e) {
-        return '无法连接至服务器'
-      }
-    },
-    async queryBsgExtUrls() {
-      let query = `
-        query ($limit: Int!) {
-          bsgExtUrls(limit: $limit, sort: "sort:desc") {
-            id
-            title
-            url
-            sort
-          }
-        }
-      `;
-      return await this.http(query, {limit})
-    },
-    async searchBsgExtUrls(keywords) {
-      let query = `
-        query ($limit: Int!, $keywords: String!) {
-          bsgExtUrls(limit: $limit, sort: "sort:desc", where: { _q: $keywords }) {
-            id
-            title
-            url
-            sort
-          }
-        }
-      `;
-      this.posts = await this.http(query, {keywords,limit})
-    },
-    async addCountBsgExtUrls(id, sort, url) {
-      let query = `
-        mutation ($input: updateBsgExtUrlInput!) {
-          updateBsgExtUrl(input: $input) {
-            bsgExtUrl {
-              id
-              title
-              url
-              sort
-            }
-          }
-        }
-      `;
+    addCountBsgExtUrls(id, sort, url) {
       let input = {
         where: { id },
         data: { sort: sort + 1 },
       }
-      try {
-        let {data} = await axios.post(server, {query, variables: {input}})
-        window.open(url, '_blank')
-        return data.data.bsgExtUrls
-      } catch (e) {
-        return { id: 0, title: '无法连接至服务器', url: '', sort: 0 }
-      }
+      this.$apollo
+        .mutate({
+          mutation: mutationUpdateExtUrl,
+          variables: { input },
+        })
+        .then((data) => {
+          console.log(data)
+          window.open(url, "_blank")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
-    async init() {
-      this.posts = await this.queryBsgExtUrls();
-      this.announcement = await this.queryBsgExtAnnouncement()
-    }
-  },
-  mounted() {
-    this.init()
   }
 }
 </script>

@@ -1,5 +1,5 @@
 query ($keywords: String!) {
-  bsgExtUrls(limit: 9, sort: "sort:desc", where: { _q: $keywords }) {
+  bsgExtUrls(limit: 5, sort: "sort:desc", where: { _q: $keywords }) {
     id
     title
     url

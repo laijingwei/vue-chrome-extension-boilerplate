@@ -18,7 +18,7 @@ const apolloProvider = new VueApollo({
     }
   },
   errorHandler (error) {
-    console.error(error)
+    console.log(error.message)
   }
 })
 Vue.use(VueApollo)
