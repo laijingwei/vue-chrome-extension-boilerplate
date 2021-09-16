@@ -25,20 +25,34 @@
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-3 rounded text-center">无相关记录</p>
       </template>
     </div>
-    <template v-if="announcement">
-      <p class="text-sm text-yellow-600 mt-3 rounded text-center">{{ announcement }}</p>
-    </template>
+    <p class="text-sm text-yellow-600 mt-3 rounded text-center">{{ bsgExtAnnouncement }}</p>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import axios from 'axios'
 
-const server = 'http://api.local.laijw.com/graphql';
+const server = 'http://192.168.110.165:1337/graphql';
 const limit = 5;
 
 export default {
   name: 'Home',
+  apollo: {
+    bsgExtAnnouncement: {
+      query: gql`query {
+        bsgExtAnnouncement {
+          title
+        }
+      }`,
+      variables() {
+        return {
+          keywords: '物业'
+        }
+      },
+      update: (data) => data.bsgExtAnnouncement.title
+    },
+  },
   data() {
     return {
       current: 0,
