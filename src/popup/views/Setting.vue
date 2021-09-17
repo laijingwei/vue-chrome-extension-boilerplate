@@ -2,7 +2,7 @@
   <div>
     <div
       class="flex items-center border-b dark:border-gray-800 w-full bg-gray-100 dark:bg-gray-700 p-3 cursor-pointer"
-      @click="$router.back()"
+      @click="this.$router.replace('/')"
     >
       <Left theme="outline" size="24" />
       <p class="ml-2">设置</p>
@@ -22,9 +22,21 @@
 
 <script>
 import { Left } from '@icon-park/vue'
+import hotkeys from "hotkeys-js"
 
 export default {
   name: 'Setting',
   components: { Left },
+  methods: {
+    init() {
+      hotkeys.filter = (event) => true
+      hotkeys('left', (event, handler) => {
+        this.$router.replace('/')
+      });
+    },
+  },
+  mounted() {
+    this.init()
+  }
 }
 </script>

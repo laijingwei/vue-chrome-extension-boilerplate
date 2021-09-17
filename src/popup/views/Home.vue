@@ -2,9 +2,6 @@
   <div>
     <input
       v-model="keywords"
-      @keyup.down="currentAdd"
-      @keyup.up="currentMinus"
-      @keyup.enter="goTo"
       autofocus
       class="w-full border-b dark:border-gray-800 focus:outline-none bg-gray-100 dark:bg-gray-700 p-3"
       aria-label="搜索"
@@ -48,6 +45,7 @@
 import { Github, Setting, Right } from '@icon-park/vue'
 import * as Lockr from 'lockr'
 import zh from 'zh_cn'
+import hotkeys from 'hotkeys-js'
 import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
 import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
@@ -80,14 +78,60 @@ export default {
     },
   },
   methods: {
-    currentAdd() {
-      if (this.current < this.menuList.length - 1) this.current++
+    init() {
+      this.bsgExtUrls = Lockr.get('bsgExtUrls') || []
+      hotkeys.filter = (event) => true
+      hotkeys('enter,up,down,right', (event, handler) => {
+        switch (handler.key) {
+          case 'enter': this.enterAction();
+            break;
+          case 'up': this.arrowAction('minus');
+            break;
+          case 'down': this.arrowAction('add');
+            break;
+          case 'right': this.enterAction();
+            break;
+          default: console.log(handler.key);
+        }
+      });
     },
-    currentMinus() {
-      if (this.current > 0) this.current--
+    arrowAction(action) {
+      if (action == 'add') {
+        if (this.keywords) {
+          if (this.current < this.results.length - 1) {
+            this.current++
+          } else {
+            this.current = 0
+          }
+        } else {
+          if (this.current < this.menuList.length - 1) {
+            this.current++
+          } else {
+            this.current = 0
+          }
+        }
+      } else if (action == 'minus') {
+        if (this.keywords) {
+          if (this.current > 0) {
+            this.current--
+          } else {
+            this.current = this.results.length - 1
+          }
+        } else {
+          if (this.current > 0) {
+            this.current--
+          } else {
+            this.current = this.menuList.length - 1
+          }
+        }
+      }
     },
-    goTo() {
-      if (this.bsgExtUrls.length > 0) window.open(this.bsgExtUrls[this.current].url, '_blank')
+    enterAction() {
+      if (this.keywords) {
+        if (this.results.length > 0) window.open(this.results[this.current].url, '_blank')
+      } else {
+        this.$router.push(this.menuList[this.current].url)
+      }
     },
     addCountBsgExtUrls(id, sort, url) {
       let input = {
@@ -109,7 +153,7 @@ export default {
     },
   },
   mounted() {
-    this.bsgExtUrls = Lockr.get('bsgExtUrls') || []
+    this.init()
   }
 }
 </script>

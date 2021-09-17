@@ -2,7 +2,7 @@
   <div>
     <div
       class="flex items-center border-b dark:border-gray-800 w-full bg-gray-100 dark:bg-gray-700 p-3 cursor-pointer"
-      @click="$router.back()"
+      @click="this.$router.replace('/')"
     >
       <Left theme="outline" size="24" />
       <p class="ml-2">关于</p>
@@ -21,6 +21,7 @@
 <script>
 import { Left, Like } from '@icon-park/vue'
 import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
+import hotkeys from "hotkeys-js"
 
 export default {
   name: 'About',
@@ -36,5 +37,16 @@ export default {
       bsgExtAnnouncement: '',
     }
   },
+  methods: {
+    init() {
+      hotkeys.filter = (event) => true
+      hotkeys('left', (event, handler) => {
+        this.$router.replace('/')
+      });
+    },
+  },
+  mounted() {
+    this.init()
+  }
 }
 </script>

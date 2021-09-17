@@ -3939,6 +3939,11 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.nlark.com/hosted-git-info/download/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
   integrity sha1-3/wL+aIcAiCQkPKqaUKeFBTa8/k=
 
+hotkeys-js@^3.8.7:
+  version "3.8.7"
+  resolved "https://registry.nlark.com/hotkeys-js/download/hotkeys-js-3.8.7.tgz#c16cab978b53d7242f860ca3932e976b92399981"
+  integrity sha1-wWyrl4tT1yQvhgyjky6Xa5I5mYE=
+
 hsl-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.nlark.com/hsl-regex/download/hsl-regex-1.0.0.tgz#d49330c789ed819e276a4c0d272dffa30b18fe6e"
