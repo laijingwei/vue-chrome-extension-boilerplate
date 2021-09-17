@@ -20,6 +20,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
+    "@tailwindcss/forms": "^0.3.3",
     "archiver": "^4.0.2",
     "autoprefixer": "^9",
     "babel-loader": "^8.1.0",

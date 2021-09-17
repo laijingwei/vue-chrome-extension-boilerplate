@@ -9,12 +9,12 @@
     </div>
 
     <div
-      class="flex bg-white dark:bg-gray-800 p-3 h-48"
+      class="flex flex-col bg-white dark:bg-gray-800 p-3 h-48"
     >
-      <p>
-        <input type="checkbox" id="cbox1" value="first_checkbox">
-        <label for="cbox1">是否在搜索结果中展示书签链接</label>
-      </p>
+      <div class="flex items-center">
+        <input type="checkbox" id="showBookmark" :value="showBookmark">
+        <label for="showBookmark" class="ml-2">是否在搜索结果中展示书签链接</label>
+      </div>
     </div>
 
   </div>
@@ -27,6 +27,11 @@ import hotkeys from "hotkeys-js"
 export default {
   name: 'Setting',
   components: { Left },
+  data() {
+    return {
+      showBookmark: false,
+    }
+  },
   methods: {
     init() {
       hotkeys.filter = (event) => true
