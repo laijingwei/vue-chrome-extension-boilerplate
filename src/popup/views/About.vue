@@ -31,5 +31,10 @@ export default {
       update: (data) => data.bsgExtAnnouncement.title
     },
   },
+  data() {
+    return {
+      bsgExtAnnouncement: '',
+    }
+  },
 }
 </script>

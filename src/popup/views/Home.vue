@@ -14,7 +14,7 @@
 
       <template v-if="keywords">
         <div
-          v-for="(item,index) in bsgExtUrls"
+          v-for="(item,index) in results"
           :key="index"
           @click="addCountBsgExtUrls(item.id, item.sort, item.url)"
           :class="index === current ? 'bg-gray-200 dark:bg-gray-600' : 'bg-white dark:bg-gray-800'"
@@ -46,6 +46,8 @@
 
 <script>
 import { Github, Setting, Right } from '@icon-park/vue'
+import * as Lockr from 'lockr'
+import zh from 'zh_cn'
 import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
 import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
@@ -55,23 +57,27 @@ export default {
   apollo: {
     bsgExtUrls: {
       query: queryBsgExtUrls,
-      variables() {
-        return {
-          keywords: this.keywords
-        }
-      },
-      update: (data) => data.bsgExtUrls
+      update: (data) => {
+        Lockr.set('bsgExtUrls', data.bsgExtUrls)
+        return data.bsgExtUrls
+      }
     },
   },
   data() {
     return {
       current: -1,
       keywords: '',
+      bsgExtUrls: [],
       menuList: [
         { title: "设置", icon: 'Setting', url: "/setting" },
         { title: "关于", icon: 'Github', url: "/about" },
       ]
     }
+  },
+  computed: {
+    results() {
+      return this.bsgExtUrls.filter(item => zh(item.title.toLowerCase()).join('').includes(this.keywords))
+    },
   },
   methods: {
     currentAdd() {
@@ -101,6 +107,9 @@ export default {
           console.log(error)
         })
     },
+  },
+  mounted() {
+    this.bsgExtUrls = Lockr.get('bsgExtUrls') || []
   }
 }
 </script>
