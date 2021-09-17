@@ -1,13 +1,17 @@
 <template>
   <div>
     <div
-      class="w-full text-base dark:bg-gray-700 p-2 cursor-pointer dark:text-gray-100"
+      class="flex items-center w-full dark:bg-gray-700 p-3 cursor-pointer"
       @click="$router.back()"
-    >关于</div>
+    >
+      <ion-icon name="arrow-back" size="small" class="text-gray-200 px-2"></ion-icon>
+      <p class="text-base dark:text-gray-100">关于</p>
+    </div>
 
     <div
-      class="bg-gray-200 dark:bg-gray-800 p-4 h-48"
+      class="flex bg-gray-200 dark:bg-gray-800 p-3 h-48"
     >
+      <ion-icon name="heart" size="small" class="text-pink-400 px-2"></ion-icon>
       <p class="text-sm text-gray-200">{{ bsgExtAnnouncement }}</p>
     </div>
 

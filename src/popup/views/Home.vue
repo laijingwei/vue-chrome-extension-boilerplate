@@ -6,7 +6,7 @@
       @keyup.up="currentMinus"
       @keyup.enter="goTo"
       autofocus
-      class="w-full text-base focus:outline-none dark:bg-gray-700 p-2 dark:text-gray-100"
+      class="w-full text-base focus:outline-none dark:bg-gray-700 p-3 dark:text-gray-100"
       aria-label="搜索"
       placeholder="搜索..."
     >
@@ -20,8 +20,7 @@
           :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
           class="flex justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
         >
-          <p class="text-blue-400 text-base">{{ item.title }}</p>
-          <p class="text-blue-400 text-base">{{ item.title }}</p>
+          <p class="text-gray-200 text-base">{{ item.title }}</p>
         </div>
       </template>
 
@@ -31,10 +30,13 @@
           :key="index"
           @click="$router.push(item.url)"
           :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
-          class="flex justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
+          class="flex items-center justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
         >
-          <p class="text-blue-400 text-base">{{ item.title }}</p>
-          <p class="text-blue-400 text-base">{{ item.title }}</p>
+          <div class="flex items-center">
+            <ion-icon :name="item.icon" size="small" class="text-gray-200 mr-2"></ion-icon>
+            <p class="text-gray-200 text-base">{{ item.title }}</p>
+          </div>
+          <ion-icon name="arrow-forward" size="small" class="text-gray-200 px-2"></ion-icon>
         </div>
       </template>
 
@@ -64,8 +66,8 @@ export default {
       current: -1,
       keywords: '',
       menuList: [
-        { title: "设置", url: "/about" },
-        { title: "关于", url: "/about" },
+        { title: "设置", icon: 'settings-outline', url: "/about" },
+        { title: "关于", icon: 'logo-github', url: "/about" },
       ]
     }
   },
