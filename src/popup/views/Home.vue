@@ -33,10 +33,10 @@
           class="flex items-center justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
         >
           <div class="flex items-center">
-            <ion-icon :name="item.icon" size="small" class="text-gray-200 mr-2"></ion-icon>
-            <p class="text-gray-200 text-base">{{ item.title }}</p>
+            <component :is="item.icon" theme="outline" size="20" fill="#eee"></component>
+            <p class="text-gray-200 text-base ml-2">{{ item.title }}</p>
           </div>
-          <ion-icon name="arrow-forward" size="small" class="text-gray-200 px-2"></ion-icon>
+          <Right theme="outline" size="24" fill="#eee" />
         </div>
       </template>
 
@@ -45,11 +45,13 @@
 </template>
 
 <script>
+import { Github, Setting, Right } from '@icon-park/vue'
 import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
 import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
 export default {
   name: 'Home',
+  components: { Github, Setting, Right },
   apollo: {
     bsgExtUrls: {
       query: queryBsgExtUrls,
@@ -66,8 +68,8 @@ export default {
       current: -1,
       keywords: '',
       menuList: [
-        { title: "设置", icon: 'settings-outline', url: "/setting" },
-        { title: "关于", icon: 'logo-github', url: "/about" },
+        { title: "设置", icon: 'Setting', url: "/setting" },
+        { title: "关于", icon: 'Github', url: "/about" },
       ]
     }
   },
