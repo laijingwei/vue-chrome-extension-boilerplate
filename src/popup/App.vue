@@ -1,16 +1,11 @@
 <template>
-  <div class="p-4 min-w-popup dark:bg-gray-700">
+  <div class="min-w-popup">
     <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      msg: "Welcome!",
-    }
-  },
   mounted() {
     this.$router.push('/')
   }
