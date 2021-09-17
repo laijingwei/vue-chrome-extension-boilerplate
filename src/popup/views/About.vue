@@ -1,18 +1,18 @@
 <template>
   <div>
     <div
-      class="flex items-center w-full dark:bg-gray-700 p-3 cursor-pointer"
+      class="flex items-center border-b dark:border-gray-800 w-full bg-gray-100 dark:bg-gray-700 p-3 cursor-pointer"
       @click="$router.back()"
     >
-      <Left theme="outline" size="24" fill="#eee" />
-      <p class="text-base dark:text-gray-100 ml-2">关于</p>
+      <Left theme="outline" size="24" />
+      <p class="ml-2">关于</p>
     </div>
 
     <div
-      class="flex bg-gray-200 dark:bg-gray-800 p-3 h-48"
+      class="flex bg-white dark:bg-gray-800 p-3 h-48"
     >
-      <Like theme="filled" size="24" fill="#eee" />
-      <p class="text-base text-gray-200 ml-2">{{ bsgExtAnnouncement }}</p>
+      <Like theme="filled" size="24" class="text-pink-400" />
+      <p class="ml-2">{{ bsgExtAnnouncement }}</p>
     </div>
 
   </div>

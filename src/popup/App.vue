@@ -1,5 +1,5 @@
 <template>
-  <div class="min-w-popup">
+  <div class="min-w-popup text-gray-800 dark:text-gray-200 text-base">
     <router-view />
   </div>
 </template>

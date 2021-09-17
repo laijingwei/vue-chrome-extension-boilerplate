@@ -6,7 +6,7 @@
       @keyup.up="currentMinus"
       @keyup.enter="goTo"
       autofocus
-      class="w-full text-base focus:outline-none dark:bg-gray-700 p-3 dark:text-gray-100"
+      class="w-full border-b dark:border-gray-800 focus:outline-none bg-gray-100 dark:bg-gray-700 p-3"
       aria-label="搜索"
       placeholder="搜索..."
     >
@@ -17,10 +17,10 @@
           v-for="(item,index) in bsgExtUrls"
           :key="index"
           @click="addCountBsgExtUrls(item.id, item.sort, item.url)"
-          :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
-          class="flex justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
+          :class="index === current ? 'bg-gray-200 dark:bg-gray-600' : 'bg-white dark:bg-gray-800'"
+          class="flex justify-between hover:bg-gray-200 dark:hover:bg-gray-600 p-3 cursor-pointer"
         >
-          <p class="text-gray-200 text-base">{{ item.title }}</p>
+          <p>{{ item.title }}</p>
         </div>
       </template>
 
@@ -29,14 +29,14 @@
           v-for="(item,index) in menuList"
           :key="index"
           @click="$router.push(item.url)"
-          :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
-          class="flex items-center justify-between hover:bg-gray-300 dark:hover:bg-gray-600 p-3 cursor-pointer"
+          :class="index === current ? 'bg-gray-200 dark:bg-gray-600' : 'bg-white dark:bg-gray-800'"
+          class="flex items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-600 p-3 cursor-pointer"
         >
           <div class="flex items-center">
-            <component :is="item.icon" theme="outline" size="20" fill="#eee"></component>
-            <p class="text-gray-200 text-base ml-2">{{ item.title }}</p>
+            <component :is="item.icon" theme="outline" size="20"></component>
+            <p class="ml-2">{{ item.title }}</p>
           </div>
-          <Right theme="outline" size="24" fill="#eee" />
+          <Right theme="outline" size="24" />
         </div>
       </template>
 
