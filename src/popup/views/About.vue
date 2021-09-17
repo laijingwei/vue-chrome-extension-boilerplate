@@ -2,7 +2,7 @@
   <div>
     <div
       class="flex items-center border-b dark:border-gray-800 w-full bg-gray-100 dark:bg-gray-700 p-3 cursor-pointer"
-      @click="this.$router.replace('/')"
+      @click="$router.replace('/')"
     >
       <Left theme="outline" size="24" />
       <p class="ml-2">关于</p>

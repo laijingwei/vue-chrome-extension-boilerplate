@@ -5,28 +5,38 @@
       @click="$router.replace('/')"
     >
       <Left theme="outline" size="24" />
-      <p class="ml-2">设置</p>
+      <p class="ml-2">新增</p>
     </div>
 
     <div
       class="flex bg-white dark:bg-gray-800 p-3 h-48"
     >
-      <p>
-        <input type="checkbox" id="cbox1" value="first_checkbox">
-        <label for="cbox1">是否在搜索结果中展示书签链接</label>
-      </p>
+      <Like theme="filled" size="24" class="text-pink-400" />
+      <p class="ml-2">{{ bsgExtAnnouncement }}</p>
     </div>
 
   </div>
 </template>
 
 <script>
-import { Left } from '@icon-park/vue'
+import { Left, Like } from '@icon-park/vue'
+import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
 import hotkeys from "hotkeys-js"
 
 export default {
-  name: 'Setting',
-  components: { Left },
+  name: 'Add',
+  components: { Left, Like },
+  apollo: {
+    bsgExtAnnouncement: {
+      query: queryBsgExtAnnouncement,
+      update: (data) => data.bsgExtAnnouncement.title
+    },
+  },
+  data() {
+    return {
+      bsgExtAnnouncement: '',
+    }
+  },
   methods: {
     init() {
       hotkeys.filter = (event) => true

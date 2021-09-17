@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { Github, Setting, Right } from '@icon-park/vue'
+import { Github, Setting, Right, Add } from '@icon-park/vue'
 import * as Lockr from 'lockr'
 import zh from 'zh_cn'
 import hotkeys from 'hotkeys-js'
@@ -51,7 +51,7 @@ import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
 export default {
   name: 'Home',
-  components: { Github, Setting, Right },
+  components: { Github, Setting, Right, Add },
   apollo: {
     bsgExtUrls: {
       query: queryBsgExtUrls,
@@ -67,6 +67,7 @@ export default {
       keywords: '',
       bsgExtUrls: [],
       menuList: [
+        { title: "新增", icon: 'Add', url: "/add" },
         { title: "设置", icon: 'Setting', url: "/setting" },
         { title: "关于", icon: 'Github', url: "/about" },
       ]
