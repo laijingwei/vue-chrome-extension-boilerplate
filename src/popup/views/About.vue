@@ -22,7 +22,7 @@
 import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
 
 export default {
-  name: 'Home',
+  name: 'About',
   apollo: {
     bsgExtAnnouncement: {
       query: queryBsgExtAnnouncement,

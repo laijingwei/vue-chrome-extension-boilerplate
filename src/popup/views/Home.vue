@@ -66,7 +66,7 @@ export default {
       current: -1,
       keywords: '',
       menuList: [
-        { title: "设置", icon: 'settings-outline', url: "/about" },
+        { title: "设置", icon: 'settings-outline', url: "/setting" },
         { title: "关于", icon: 'logo-github', url: "/about" },
       ]
     }

@@ -25,7 +25,7 @@ function configFunc(env, argv) {
       path: path.resolve(__dirname, './dist'),
       publicPath: './',
       filename: '[name].js',
-      chunkFilename: 'bundle.js',
+      chunkFilename: '[name].bundle.js',
     },
     module: {
       rules: [
