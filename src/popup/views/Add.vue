@@ -9,10 +9,17 @@
     </div>
 
     <div
-      class="flex bg-white dark:bg-gray-800 p-3 h-48"
+      class="flex flex-col bg-white dark:bg-gray-800 p-3"
     >
-      <Like theme="filled" size="24" class="text-pink-400" />
-      <p class="ml-2">{{ bsgExtAnnouncement }}</p>
+      <label class="block">
+        <span>标题</span>
+        <input type="text" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="" />
+      </label>
+      <label class="block mt-2">
+        <span>链接</span>
+        <input type="text" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="" />
+      </label>
+      <button class="py-2 mt-4 rounded shadow bg-gray-400 hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500">确定</button>
     </div>
 
   </div>

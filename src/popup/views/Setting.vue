@@ -11,10 +11,10 @@
     <div
       class="flex flex-col bg-white dark:bg-gray-800 p-3 h-48"
     >
-      <div class="flex items-center">
-        <input type="checkbox" id="showBookmark" :value="showBookmark">
-        <label for="showBookmark" class="ml-2">是否在搜索结果中展示书签链接</label>
-      </div>
+      <label class="inline-flex items-center">
+        <input type="checkbox" :checked="showBookmark">
+        <span class="ml-2">是否在搜索结果中展示书签链接</span>
+      </label>
     </div>
 
   </div>
