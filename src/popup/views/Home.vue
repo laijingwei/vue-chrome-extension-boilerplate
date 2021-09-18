@@ -113,13 +113,13 @@ export default {
       })
     },
     arrowAction(action) {
-      if (action == 'add') {
+      if (action === 'add') {
         if (this.current < this.urls.length - 1) {
           this.current++
         } else {
           this.current = 0
         }
-      } else if (action == 'minus') {
+      } else if (action === 'minus') {
         if (this.current > 0) {
           this.current--
         } else {

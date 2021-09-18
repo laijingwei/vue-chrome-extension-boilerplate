@@ -8,18 +8,13 @@
       <p class="ml-2">新增</p>
     </div>
 
-    <div
-      class="flex flex-col bg-white dark:bg-gray-800 p-3"
-    >
-      <label class="block">
-        <span>标题</span>
-        <input type="text" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="" />
-      </label>
-      <label class="block mt-2">
-        <span>链接</span>
-        <input type="text" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="" />
-      </label>
-      <button class="py-2 mt-4 rounded shadow bg-gray-400 hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500">确定</button>
+    <div class="grid grid-cols-1 gap-2 bg-white dark:bg-gray-800 p-3">
+      <input type="text" v-model="title" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="标题" />
+      <input type="text" v-model="url" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700" placeholder="链接" />
+      <button
+        class="py-2 mt-2 shadow rounded bg-gray-400 hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500"
+        @click="submit"
+      >确定</button>
     </div>
 
   </div>
@@ -28,21 +23,15 @@
 <script>
 import { Left, Like } from '@icon-park/vue'
 import hotkeys from "hotkeys-js"
-import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
-import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
+import mutationCreateBsgExtUrl from '@/graphql/mutationCreateBsgExtUrl.gql'
 
 export default {
   name: 'Add',
   components: { Left, Like },
-  apollo: {
-    bsgExtAnnouncement: {
-      query: queryBsgExtAnnouncement,
-      update: (data) => data.bsgExtAnnouncement.title
-    },
-  },
   data() {
     return {
-      bsgExtAnnouncement: '',
+      title: '',
+      url: '',
     }
   },
   methods: {
@@ -52,23 +41,44 @@ export default {
         this.$router.replace('/')
       });
     },
-    // URL计次
-    addCountBsgExtUrls(id, sort, url) {
+    submit() {
+      let { title, url } = this
+      if (!title || !url || !url.includes('http')) {
+        chrome.notifications.clear('validate')
+        chrome.notifications.create('validate', {
+          type: 'basic',
+          iconUrl: 'assets/icons/icon_128.png',
+          title: '博思高',
+          message: '内容不合法'
+        })
+        return
+      }
       let input = {
-        where: { id },
-        data: { sort: sort + 1 },
+        data: { title, url },
       }
       this.$apollo
         .mutate({
-          mutation: mutationUpdateExtUrl,
+          mutation: mutationCreateBsgExtUrl,
           variables: { input },
         })
         .then((data) => {
-          console.log(data)
-          chrome.tabs.create({ url })
+          chrome.notifications.clear('success')
+          chrome.notifications.create('success', {
+            type: 'basic',
+            iconUrl: 'assets/icons/icon_128.png',
+            title: '博思高',
+            message: '添加成功'
+          })
+          this.$router.replace('/')
         })
         .catch((error) => {
-          console.log(error)
+          chrome.notifications.clear('error')
+          chrome.notifications.create('error', {
+            type: 'basic',
+            iconUrl: 'assets/icons/icon_128.png',
+            title: '博思高',
+            message: '添加失败'
+          })
         })
     },
   },

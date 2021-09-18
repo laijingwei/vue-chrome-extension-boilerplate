@@ -1,7 +1,6 @@
 # vue chrome extension
 
 ## Roadmap
-- 用户提交链接
 - 网络接口调试界面
 
 ## Install TailwindCSS
