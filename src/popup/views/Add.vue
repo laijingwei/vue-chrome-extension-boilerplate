@@ -54,6 +54,9 @@ export default {
   },
   mounted() {
     this.init()
+  },
+  beforeDestroy() {
+    hotkeys.unbind()
   }
 }
 </script>
