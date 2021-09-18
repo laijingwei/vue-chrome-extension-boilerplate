@@ -16,11 +16,11 @@
         :class="index === current ? 'bg-gray-200 dark:bg-gray-600' : 'bg-white dark:bg-gray-800'"
         class="grid grid-cols-8 hover:bg-gray-200 dark:hover:bg-gray-600 p-3 cursor-pointer"
       >
-        <div class="flex justify-center">
+        <div class="flex justify-center items-center">
           <component :is="item.icon" theme="outline" size="20"></component>
         </div>
-        <p class="col-span-6 ml-2 truncate">{{ item.title }}</p>
-        <div class="flex justify-center">
+        <p class="col-span-6 truncate">{{ item.title }}</p>
+        <div class="flex justify-center items-center">
           <Right theme="outline" size="24" />
         </div>
       </div>

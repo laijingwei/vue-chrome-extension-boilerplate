@@ -13,19 +13,19 @@
     >
       <label class="inline-flex items-center">
         <input type="checkbox" :checked="showBookmark">
-        <span class="ml-2">是否在搜索结果中展示博思高链接</span>
+        <span class="ml-2">显示博思高链接</span>
       </label>
       <label class="inline-flex items-center">
         <input type="checkbox" :checked="showBookmark">
-        <span class="ml-2">是否在搜索结果中展示最常访问</span>
+        <span class="ml-2">显示最常访问</span>
       </label>
       <label class="inline-flex items-center">
         <input type="checkbox" :checked="showBookmark">
-        <span class="ml-2">是否在搜索结果中展示书签链接</span>
+        <span class="ml-2">显示书签链接</span>
       </label>
       <label class="inline-flex items-center">
         <input type="checkbox" :checked="showBookmark">
-        <span class="ml-2">是否在搜索结果中展示浏览历史</span>
+        <span class="ml-2">显示浏览历史</span>
       </label>
     </div>
 
