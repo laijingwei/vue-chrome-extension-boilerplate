@@ -43,6 +43,10 @@
     "background",
     "storage",
     "tabs",
+    "topSites",
+    "bookmarks",
+    "history",
+    "downloads",
     "webRequest"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

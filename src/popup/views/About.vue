@@ -42,8 +42,13 @@ export default {
       hotkeys.filter = (event) => true
       hotkeys('left', (event, handler) => {
         this.$router.replace('/')
+        this.setBadge()
       });
     },
+    setBadge() {
+      chrome.browserAction.setBadgeText({text: 'ON'});
+      chrome.browserAction.setBadgeBackgroundColor({color: '#4688F1'});
+    }
   },
   mounted() {
     this.init()

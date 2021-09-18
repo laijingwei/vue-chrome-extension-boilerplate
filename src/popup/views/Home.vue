@@ -43,7 +43,6 @@
 
 <script>
 import { Github, Setting, Right, Add } from '@icon-park/vue'
-import * as Lockr from 'lockr'
 import zh from 'zh_cn'
 import hotkeys from 'hotkeys-js'
 import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
@@ -56,7 +55,9 @@ export default {
     bsgExtUrls: {
       query: queryBsgExtUrls,
       update: (data) => {
-        Lockr.set('bsgExtUrls', data.bsgExtUrls)
+        chrome.storage.local.set({ bsgExtUrls: data.bsgExtUrls }, () => {
+          console.log('bsgExtUrls has been set')
+        })
         return data.bsgExtUrls
       }
     },
@@ -80,7 +81,9 @@ export default {
   },
   methods: {
     init() {
-      this.bsgExtUrls = Lockr.get('bsgExtUrls') || []
+      chrome.storage.local.get(['bsgExtUrls'], results => {
+        this.bsgExtUrls = results.bsgExtUrls
+      })
       hotkeys.filter = (event) => true
       hotkeys('enter,up,down,right', (event, handler) => {
         switch (handler.key) {
@@ -95,6 +98,11 @@ export default {
           default: console.log(handler.key);
         }
       });
+    },
+    search() {
+      chrome.bookmarks.search(this.keywords, results => {
+        this.bsgExtUrls = results
+      })
     },
     arrowAction(action) {
       if (action == 'add') {
@@ -129,7 +137,7 @@ export default {
     },
     enterAction() {
       if (this.keywords) {
-        if (this.results.length > 0) window.open(this.results[this.current].url, '_blank')
+        if (this.results.length > 0) chrome.tabs.create({ url: this.results[this.current].url })
       } else {
         this.$router.push(this.menuList[this.current].url)
       }
@@ -146,7 +154,7 @@ export default {
         })
         .then((data) => {
           console.log(data)
-          window.open(url, "_blank")
+          chrome.tabs.create({ url })
         })
         .catch((error) => {
           console.log(error)

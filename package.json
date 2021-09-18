@@ -9,14 +9,13 @@
     "apollo-boost": "^0.4.9",
     "graphql": "^15.5.3",
     "hotkeys-js": "^3.8.7",
-    "lockr": "^0.9.0-beta.0",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.7",
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
     "zh_cn": "^0.0.7"
   },
-  "description": "vue-chrome-extension-boilerplate",
+  "description": "vue-chrome",
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
@@ -60,10 +59,10 @@
     "webpack-extension-reloader": "^1.1.4"
   },
   "license": "MIT",
-  "name": "vue-chrome-extension-boilerplate",
+  "name": "vue-chrome",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mubaidr/vue-chrome-extension-boilerplate.git"
+    "url": "git+https://github.com/mubaidr/vue-chrome.git"
   },
   "scripts": {
     "build": "NODE_ENV=production npm run pack && npm run remove-evals && npm run zip",
