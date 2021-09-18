@@ -29,15 +29,14 @@
 </template>
 
 <script>
-import { Github, Setting, Right, Add, Bookmark, Wifi } from '@icon-park/vue'
+import { Github, Setting, Right, Add, Bookmark, Wifi, History, Star } from '@icon-park/vue'
 import zh from 'zh_cn'
 import hotkeys from 'hotkeys-js'
 import queryBsgExtUrls from '@/graphql/queryBsgExtUrls.gql'
-import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
 export default {
   name: 'Home',
-  components: { Github, Setting, Right, Add, Bookmark, Wifi },
+  components: { Github, Setting, Right, Add, Bookmark, Wifi, History, Star },
   apollo: {
     bsgExtUrls: {
       query: queryBsgExtUrls,
@@ -55,10 +54,12 @@ export default {
       keywords: '',
       bsgExtUrls: [],
       bookmarks: [],
+      history: [],
+      topSites: [],
       menuList: [
-        { title: "新增", icon: 'Add', url: "/add" },
-        { title: "设置", icon: 'Setting', url: "/setting" },
-        { title: "关于", icon: 'Github', url: "/about" },
+        { title: "新增", url: "/add", icon: 'Add' },
+        { title: "设置", url: "/setting", icon: 'Setting' },
+        { title: "关于", url: "/about", icon: 'Github' },
       ]
     }
   },
@@ -67,8 +68,14 @@ export default {
       let arr = this.bsgExtUrls.map(({title, url}) => {
         return { title, url, icon: 'Wifi' }
       })
-      this.bookmarks.map(({title, url}) => {
+      this.topSites.map(({title, url}) => {
         arr.push({ title, url, icon: 'Bookmark' })
+      })
+      this.bookmarks.map(({title, url}) => {
+        arr.push({ title, url, icon: 'Star' })
+      })
+      this.history.map(({title, url}) => {
+        arr.push({ title, url, icon: 'History' })
       })
       let results = arr.filter(item => zh(item.title.toLowerCase()).join('').includes(this.keywords))
       return this.keywords ? results : this.menuList
@@ -78,6 +85,9 @@ export default {
     init() {
       chrome.storage.local.get(['bsgExtUrls'], results => {
         this.bsgExtUrls = results.bsgExtUrls
+      })
+      chrome.topSites.get(data => {
+        this.topSites = data
       })
       hotkeys.filter = (event) => true
       hotkeys('enter,up,down,right', (event, handler) => {
@@ -97,6 +107,9 @@ export default {
     search() {
       chrome.bookmarks.search(this.keywords, results => {
         this.bookmarks = results
+      })
+      chrome.history.search({ text: this.keywords }, results => {
+        this.history = results
       })
     },
     arrowAction(action) {
@@ -124,25 +137,6 @@ export default {
       } else {
         this.$router.push(url)
       }
-    },
-    // URL计次
-    addCountBsgExtUrls(id, sort, url) {
-      let input = {
-        where: { id },
-        data: { sort: sort + 1 },
-      }
-      this.$apollo
-        .mutate({
-          mutation: mutationUpdateExtUrl,
-          variables: { input },
-        })
-        .then((data) => {
-          console.log(data)
-          chrome.tabs.create({ url })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
   },
   mounted() {

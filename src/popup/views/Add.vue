@@ -27,8 +27,9 @@
 
 <script>
 import { Left, Like } from '@icon-park/vue'
-import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
 import hotkeys from "hotkeys-js"
+import queryBsgExtAnnouncement from '@/graphql/queryBsgExtAnnouncement.gql'
+import mutationUpdateExtUrl from '@/graphql/mutationUpdateExtUrl.gql'
 
 export default {
   name: 'Add',
@@ -50,6 +51,25 @@ export default {
       hotkeys('left', (event, handler) => {
         this.$router.replace('/')
       });
+    },
+    // URL计次
+    addCountBsgExtUrls(id, sort, url) {
+      let input = {
+        where: { id },
+        data: { sort: sort + 1 },
+      }
+      this.$apollo
+        .mutate({
+          mutation: mutationUpdateExtUrl,
+          variables: { input },
+        })
+        .then((data) => {
+          console.log(data)
+          chrome.tabs.create({ url })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
   mounted() {
